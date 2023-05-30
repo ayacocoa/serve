@@ -101,12 +101,25 @@ exports.findWallPage = async (req, res) => {
         //不喜欢
         result[i].report = await dbModel.findbackCount(result[i].id, 1);
         //撤销
-        result[i].revoke = await dbModel.findbackCount(result[i], id, 2);
+        result[i].revoke = await dbModel.findbackCount(result[i].id, 2);
         //点赞
-        result[i].islike = await dbModel.likeCount(result[i].id, data.id);
+        result[i].islike = await dbModel.likeCount(result[i].id, data.userId);
         //评论数
         result[i].commmentCount = await dbModel.commmentCount(result[i].id);
       }
+      res.send({
+        code: 200,
+        message: result,
+      });
+    });
+};
+
+//倒叙分页查墙的评论
+exports.findCommentPage = async (req, res) => {
+  let data = req.body;
+  await dbModel
+    .findCommentPage(data.page, data.pagesize, data.id)
+    .then((result) => {
       res.send({
         code: 200,
         message: result,
