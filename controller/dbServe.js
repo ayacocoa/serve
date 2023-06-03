@@ -1,8 +1,10 @@
 const dbModel = require("../lib/db");
 
+//新建wall
 exports.insertWall = async (req, res) => {
   let data = req.body;
-  //console.log(data)
+  // console.log(data);
+
   await dbModel
     .insertWall([
       data.type,
@@ -10,8 +12,8 @@ exports.insertWall = async (req, res) => {
       data.name,
       data.userId,
       data.moment,
+      data.title,
       data.label,
-      data.color,
       data.imgurl,
     ])
     .then((result) => {
