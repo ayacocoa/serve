@@ -90,6 +90,19 @@ exports.deleteComment = async (req, res) => {
   });
 };
 
+//查询
+exports.findWall = async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  await dbModel.findWall(data.id).then((result) => {
+    // console.log(result);
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
+
 //分页查询wall并获取喜欢，不喜欢，撤销
 exports.findWallPage = async (req, res) => {
   let data = req.body;

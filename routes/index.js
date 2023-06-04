@@ -27,6 +27,10 @@ module.exports = function (app) {
   app.post("/deletecomment", (req, res) => {
     controller.deleteComment(req, res);
   });
+  //查询wall
+  app.post("/findwall", (req, res) => {
+    controller.findWall(req, res);
+  });
   //分页查询wall
   app.post("/findwallpage", (req, res) => {
     controller.findWallPage(req, res);
@@ -35,6 +39,7 @@ module.exports = function (app) {
   app.post("/findcommentpage", (req, res) => {
     controller.findCommentPage(req, res);
   });
+
   //用户进入时的ip登记
   app.post("/signip", (req, res) => {
     let ip = req.ip;
