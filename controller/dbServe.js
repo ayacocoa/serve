@@ -109,6 +109,7 @@ exports.findWallPage = async (req, res) => {
   await dbModel
     .findWallPage(data.page, data.pagesize, data.type, data.label)
     .then(async (result) => {
+      // console.log(result);
       for (let i = 0; i < result.length; i++) {
         //查找wall的一些相关数据
         //喜欢
