@@ -115,7 +115,7 @@ exports.findWallPage = async (req, res) => {
         //喜欢
         result[i].like = await dbModel.findbackCount(result[i].id, 0);
         //不喜欢
-        result[i].report = await dbModel.findbackCount(result[i].id, 1);
+        result[i].dislike = await dbModel.findbackCount(result[i].id, 1);
         //撤销
         result[i].revoke = await dbModel.findbackCount(result[i].id, 2);
         //点赞
