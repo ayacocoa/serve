@@ -48,4 +48,16 @@ module.exports = function (app) {
       ip: ip,
     });
   });
+  //注册
+  app.post("/api/regist", (req, res) => {
+    controller.regist(req, res);
+  });
+  //登录
+  app.post("/api/login", (req, res) => {
+    debugger;
+    res.send({
+      code: 200,
+      message: "123",
+    });
+  });
 };

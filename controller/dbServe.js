@@ -142,3 +142,14 @@ exports.findCommentPage = async (req, res) => {
       });
     });
 };
+
+exports.regist = async (req, res) => {
+  let data = req.body;
+
+  await dbModel.regist(data.username, data.password).then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
