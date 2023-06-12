@@ -54,10 +54,6 @@ module.exports = function (app) {
   });
   //登录
   app.post("/api/login", (req, res) => {
-    debugger;
-    res.send({
-      code: 200,
-      message: "123",
-    });
+    controller.login(req, res);
   });
 };

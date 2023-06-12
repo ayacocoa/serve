@@ -143,6 +143,7 @@ exports.findCommentPage = async (req, res) => {
     });
 };
 
+//注册
 exports.regist = async (req, res) => {
   let data = req.body;
 
@@ -151,5 +152,25 @@ exports.regist = async (req, res) => {
       code: 200,
       message: result,
     });
+  });
+};
+
+//登录
+exports.login = async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  await dbModel.login(data.username, data.password).then((result) => {
+    console.log(result);
+    if (result.length) {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    } else {
+      res.send({
+        code: 204,
+        message: "账号与密码不匹配或不存在",
+      });
+    }
   });
 };
