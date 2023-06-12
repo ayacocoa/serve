@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
-
+const { expressjwt } = require("express-jwt");
+const SECRET_KEY = "coco2023";
+const errorhandler = require("./controller/errorHandler");
 //解析html
 const ejs = require("ejs");
 const config = require("./config/default");
@@ -37,10 +39,16 @@ app.set("view engine", "html");
 //解析前端数据
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+// app.use(
+//   expressjwt({
+//     secret: SECRET_KEY,
+//     algorithms: ["HS256"], // 使用何种加密算法解析
+//   }).unless({ path: ["/api/login"] }) // 登录页无需校验
+// );
 //引入路由
 require("./routes/index")(app);
 
+app.use(errorhandler);
 app.listen(config.port, () => {
   console.log(`端口${config.port}开启`);
 });

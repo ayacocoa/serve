@@ -1,4 +1,6 @@
 const dbModel = require("../lib/db");
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "coco2023";
 
 //新建wall
 exports.insertWall = async (req, res) => {
@@ -162,9 +164,12 @@ exports.login = async (req, res) => {
   await dbModel.login(data.username, data.password).then((result) => {
     console.log(result);
     if (result.length) {
+      const token = jwt.sign({ result }, SECRET_KEY, { expiresIn: "3h" });
+      // console.log(token);
       res.send({
         code: 200,
         message: result,
+        token,
       });
     } else {
       res.send({
