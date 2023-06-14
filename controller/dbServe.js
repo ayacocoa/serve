@@ -168,7 +168,7 @@ exports.login = async (req, res) => {
       // console.log(token);
       res.send({
         code: 200,
-        message: result,
+        user: result,
         token,
       });
     } else {
@@ -177,5 +177,17 @@ exports.login = async (req, res) => {
         message: "账号与密码不匹配或不存在",
       });
     }
+  });
+};
+
+//获取用户数据
+exports.getUser = async (req, res) => {
+  let data = req.body;
+  await dbModel.getUser(data.username, data.password).then((result) => {
+    res.send({
+      code: 200,
+      user: result,
+      token,
+    });
   });
 };

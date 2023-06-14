@@ -56,4 +56,8 @@ module.exports = function (app) {
   app.post("/api/login", (req, res) => {
     controller.login(req, res);
   });
+  //获取用户数据
+  app.post("/getuser", (req, res) => {
+    controller.getUser(req, res);
+  });
 };
