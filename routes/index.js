@@ -15,6 +15,14 @@ module.exports = function (app) {
   app.post("/insertfeedback", (req, res) => {
     controller.insertFeedback(req, res);
   });
+  //查询反馈
+  app.post("/findfeedback", (req, res) => {
+    controller.findFeedback(req, res);
+  });
+  //喜欢/不喜欢、评论数
+  app.post("/wallfeedback", (req, res) => {
+    controller.wallFeedback(req, res);
+  });
   //新建评论
   app.post("/insertcomment", (req, res) => {
     controller.insertComment(req, res);
@@ -59,5 +67,9 @@ module.exports = function (app) {
   //获取用户数据
   app.post("/getuser", (req, res) => {
     controller.getUser(req, res);
+  });
+  //搜索
+  app.post("/search", (req, res) => {
+    controller.searchFun(req, res);
   });
 };

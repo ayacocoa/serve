@@ -38,7 +38,30 @@ exports.insertFeedback = async (req, res) => {
       });
     });
 };
-
+//查询反馈
+exports.findFeedback = async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  await dbModel
+    .findFeedback(data.wallId, data.userId, data.type)
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    });
+};
+//喜欢/不喜欢、评论数
+exports.wallFeedback = async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  await dbModel.wallFeedback(data.wallId, data.type).then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
 //新建评论
 exports.insertComment = async (req, res) => {
   let data = req.body;
@@ -105,26 +128,13 @@ exports.findWall = async (req, res) => {
   });
 };
 
-//分页查询wall并获取喜欢，不喜欢，撤销
+//分页查询wall
 exports.findWallPage = async (req, res) => {
   let data = req.body;
   await dbModel
     .findWallPage(data.page, data.pagesize, data.type, data.label)
     .then(async (result) => {
       // console.log(result);
-      for (let i = 0; i < result.length; i++) {
-        //查找wall的一些相关数据
-        //喜欢
-        result[i].like = await dbModel.findbackCount(result[i].id, 0);
-        //不喜欢
-        result[i].dislike = await dbModel.findbackCount(result[i].id, 1);
-        //撤销
-        result[i].revoke = await dbModel.findbackCount(result[i].id, 2);
-        //点赞
-        result[i].islike = await dbModel.likeCount(result[i].id, data.userId);
-        //评论数
-        result[i].commmentCount = await dbModel.commmentCount(result[i].id);
-      }
       res.send({
         code: 200,
         message: result,
@@ -188,6 +198,17 @@ exports.getUser = async (req, res) => {
       code: 200,
       user: result,
       token,
+    });
+  });
+};
+
+// 搜索
+exports.searchFun = async (req, res) => {
+  let data = req.body;
+  await dbModel.searchFun(data.data).then((result) => {
+    res.send({
+      code: 200,
+      result: result,
     });
   });
 };
