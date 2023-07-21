@@ -45,7 +45,7 @@ app.use(
   expressjwt({
     secret: SECRET_KEY,
     algorithms: ["HS256"], // 使用何种加密算法解析
-  }).unless({ path: ["/api/login"] }) // 登录页无需校验
+  }).unless({ path: ["/api/login", "/api/regist"] }) // 登录注册页无需校验
 );
 //引入路由
 require("./routes/index")(app);

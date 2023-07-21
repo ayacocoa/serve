@@ -173,7 +173,7 @@ exports.login = async (req, res) => {
   // console.log(data);
   await dbModel.login(data.username, data.password).then((result) => {
     console.log(result);
-    if (result.length) {
+    if (result.length && result != "不能为空") {
       const token = jwt.sign({ result }, SECRET_KEY, { expiresIn: "3h" });
       // console.log(token);
       res.send({
