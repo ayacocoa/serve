@@ -51,11 +51,57 @@ exports.findFeedback = async (req, res) => {
       });
     });
 };
-//喜欢/不喜欢、评论数
+//查询收藏
+exports.findCollect = async (req, res) => {
+  let data = req.body;
+  let returnres = [];
+  // console.log(data);
+  await dbModel.findCollect(data.userId, data.type).then((result) => {
+    let sipres = JSON.parse(JSON.stringify(result));
+    for (let i = 0; i < sipres.length; i++) {
+      dbModel.findWall(sipres[i].wallId).then((result) => {
+        let simpleres = JSON.parse(JSON.stringify(result));
+        returnres = [...returnres, ...simpleres];
+      });
+    }
+    setTimeout(() => {
+      console.log(returnres);
+      res.send({
+        code: 200,
+        message: returnres,
+      });
+    }, 200); //优化
+  });
+};
+//删除反馈
+exports.deleteFeedback = async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  await dbModel
+    .deleteFeedback(data.wallId, data.userId, data.type)
+    .then((result) => {
+      res.send({
+        code: 200,
+        message: result,
+      });
+    });
+};
+//增加喜欢/不喜欢、评论数
 exports.wallFeedback = async (req, res) => {
   let data = req.body;
   // console.log(data);
   await dbModel.wallFeedback(data.wallId, data.type).then((result) => {
+    res.send({
+      code: 200,
+      message: result,
+    });
+  });
+};
+//减少喜欢/不喜欢、评论数
+exports.subWallFeedback = async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  await dbModel.subWallFeedback(data.wallId, data.type).then((result) => {
     res.send({
       code: 200,
       message: result,
@@ -86,17 +132,6 @@ exports.insertComment = async (req, res) => {
 exports.deleteWall = async (req, res) => {
   let data = req.body;
   await dbModel.deleteWall(data.id).then((result) => {
-    res.send({
-      code: 200,
-      message: result,
-    });
-  });
-};
-
-//删除反馈
-exports.deleteFeedback = async (req, res) => {
-  let data = req.body;
-  await dbModel.deleteFeedback(data.id).then((result) => {
     res.send({
       code: 200,
       message: result,
@@ -174,7 +209,7 @@ exports.login = async (req, res) => {
   await dbModel.login(data.username, data.password).then((result) => {
     console.log(result);
     if (result.length && result != "不能为空") {
-      const token = jwt.sign({ result }, SECRET_KEY, { expiresIn: "3h" });
+      const token = jwt.sign({ result }, SECRET_KEY, { expiresIn: "10h" });
       // console.log(token);
       res.send({
         code: 200,

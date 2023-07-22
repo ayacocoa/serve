@@ -15,21 +15,29 @@ module.exports = function (app) {
   app.post("/insertfeedback", (req, res) => {
     controller.insertFeedback(req, res);
   });
+  //删除反馈
+  app.post("/deletefeedback", (req, res) => {
+    controller.deleteFeedback(req, res);
+  });
   //查询反馈
   app.post("/findfeedback", (req, res) => {
     controller.findFeedback(req, res);
   });
-  //喜欢/不喜欢、评论数
+  //查询收藏
+  app.post("/findcollect", (req, res) => {
+    controller.findCollect(req, res);
+  });
+  //增加喜欢/不喜欢、评论数
   app.post("/wallfeedback", (req, res) => {
     controller.wallFeedback(req, res);
+  });
+  //减少喜欢/不喜欢、评论数
+  app.post("/subwallfeedback", (req, res) => {
+    controller.subWallFeedback(req, res);
   });
   //新建评论
   app.post("/insertcomment", (req, res) => {
     controller.insertComment(req, res);
-  });
-  //删除墙
-  app.post("/deletefeedback", (req, res) => {
-    controller.deleteFeedback(req, res);
   });
   //删除评价
   app.post("/deletecomment", (req, res) => {
