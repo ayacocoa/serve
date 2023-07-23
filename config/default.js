@@ -1,4 +1,6 @@
-// const config = {
+let config;
+
+// config = {
 //   port: 3000, //端口号
 //   database: {
 //     HOST: "localhost",
@@ -7,13 +9,15 @@
 //     WALL: "WALL",
 //   },
 // };
-const config = {
+
+config = {
   port: 3000, //端口号
   database: {
-    HOST: "10.21.108.215:3306",
-    USER: "root",
-    PASSWORD: "admin123",
-    WALL: "WALL",
+    HOST: "sh-cynosdbmysql-grp-ohaoeanu.sql.tencentcdb.com",
+    PORT: "20676",
+    USER: "roott",
+    PASSWORD: "Admin123",
+    WALL: "wall",
   },
 };
 
